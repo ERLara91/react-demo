@@ -37,4 +37,38 @@ export default class LifecycleDemo extends Component {
         return should;
 
     }
+
+    getSnapshotBeforeUpdate(prevProps, preState) {
+        console.log("LifeCycle - getSnapshotBeforeUpdate")
+        return null;
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (prevState.clicks !== this.state.clicks) {
+            console.log (`LifeCycleDemo clicks: ${prevState.clicks} - ${this.state.clicks}`)
+        }
+        if (prevProps.title !== this.props.title) {
+            console.log (`LifeCycleDemo title: "${prevProps.title}" - "${this.props.title}`)
+
+        }
+    }
+
+    componentWillUnmount() {
+        console.log("LifeCycleDemo componentWillUnmount")
+    }
+
+    render() {
+        renderCount += 1;
+        console.log(`LIfecycleDemo render #${renderCount}`)
+        console.log("LIfecycleDemo current state in render", this.state);
+        console.log("LifeCycleDemo current props in render", this.props);
+
+        return(
+            <div style={{padding: "1rem", border: "1px solid #333", borderRadius: 8}}>
+               <h3>{this.props.title}</h3>
+               <p>Clicks: {this.state.clicks}</p>
+               <button onClick={this.handleClick}>Increment</button>
+            </div>       
+        )
+    }
 }
